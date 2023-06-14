@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <h1>PAGINA 2</h1>
+        <p id="firstName"></p>
+        <p id="lastName"></p>
+        <p id="email"></p>
+        <script>
+            const paragrafo1 = document.getElementById("firstName");
+            const paragrafo2 = document.getElementById("lastName");
+            const paragrafo3 = document.getElementById("email");
+            
+            paragrafo1.innerHTML = localStorage.getItem("firstName");
+            paragrafo2.innerHTML = localStorage.getItem("lastName");
+            paragrafo3.innerHTML = localStorage.getItem("email");
+        </script>
+    </body>
+</html>

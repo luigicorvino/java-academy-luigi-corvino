@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <p id="paragrafo1"></p>
+        <p id="paragrafo2"></p>
+        <script>
+            const JSONString = '{"succes":true,"data":{"specializzazione":"Design","ambito":{"contesto":"Enterprise"}}}'
+            const paragrafo1 = document.getElementById("paragrafo1");
+            const paragrafo2 = document.getElementById("paragrafo2");
+
+            document.addEventListener("DOMContentLoaded",function(event){
+                const JSONObj = JSON.parse(JSONString);
+                paragrafo1.innerHTML = JSONObj.data.specializzazione;
+                paragrafo2.innerHTML = JSONObj.data.ambito.contesto;
+            })
+        </script>
+    </body>
+</html>

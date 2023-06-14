@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <p id="paragrafo1"></p>
+        <p id="paragrafo2"></p>
+        <script>
+            const paragrafo1 = document.getElementById("paragrafo1");
+            const paragrafo2 = document.getElementById("paragrafo2");
+
+            function getParametrizzata(){
+                try{
+                    const request = new XMLHttpRequest();
+                    const requestParams = "username=pluto";
+                    request.open('GET','http://cicacademy2023.ddns.net/esercizi/getParam?' +requestParams,false);
+                    request.send();
+
+                    if(request.status === 200){
+                        return request.response;
+                    }
+                }catch(error){
+                    alert('Endpoint remoto - GET - /esercizi/getParam non disponibile');
+                }
+
+            }
+
+            document.addEventListener("DOMContentLoaded",function(event){
+                const JSONObj = JSON.parse(getParametrizzata());
+                if(JSONObj.success){
+                    paragrafo1.innerHTML = JSONObj.data.specializzazione;
+                    paragrafo2.innerHTML = JSONObj.data.ambito.contesto;
+                }
+                else{
+                    alert("Errore nel parametro");
+                }
+            })
+        </script>
+    </body>
+</html>

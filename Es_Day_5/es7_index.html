@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <label for="username">Username</label>
+        <input type="text" id="username-txt">
+        <button type="button" id="username-btn">Invia username</button>
+        <p id="paragrafo1"></p>
+        <p id="paragrafo2"></p>
+
+        
+        <script>
+            const paragrafo1 = document.getElementById("paragrafo1");
+            const paragrafo2 = document.getElementById("paragrafo2");
+            const usernameButton = document.getElementById("username-btn");
+            const usernameInput = document.getElementById("username-txt");
+
+            function getParametro(){
+                return "username="+usernameInput.value;
+            }
+
+            function getParametrizzata(){
+                try{
+                    const request = new XMLHttpRequest();
+                    const requestParams = getParametro();
+                    request.open('GET','http://cicacademy2023.ddns.net/esercizi/getParam?' +requestParams,false);
+                    request.send();
+
+                    if(request.status === 200){
+                        return request.response;
+                    }
+                }catch(error){
+                    alert('Endpoint remoto - GET - /esercizi/getParam non disponibile');
+                }
+
+            }
+
+            usernameButton.addEventListener("click",function(event){
+                const JSONObj = JSON.parse(getParametrizzata());
+                if(JSONObj.success){
+                    paragrafo1.innerHTML = JSONObj.data.specializzazione;
+                    paragrafo2.innerHTML = JSONObj.data.ambito.contesto;
+                }
+                else{
+                    alert("Errore nel parametro");
+                }
+            })
+        </script>
+    </body>
+</html>

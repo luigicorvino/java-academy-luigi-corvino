@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <p id="paragrafo1"></p>
+        <p id="paragrafo2"></p>
+        <script>
+            const paragrafo1 = document.getElementById("paragrafo1");
+            const paragrafo2 = document.getElementById("paragrafo2");
+
+            function get(){
+                try{
+                    const request = new XMLHttpRequest();
+                    request.open('GET','http://cicacademy2023.ddns.net/esercizi/get',false);
+                    request.send();
+
+                    if(request.status === 200){
+                        return request.response;
+                    }
+                }catch(error){
+                    alert('Endpoint remoto - GET - /esercizi/get non disponibile');
+                }
+
+            }
+
+            document.addEventListener("DOMContentLoaded",function(event){
+                const JSONObj = JSON.parse(get());
+                paragrafo1.innerHTML = JSONObj.data.specializzazione;
+                paragrafo2.innerHTML = JSONObj.data.ambito.contesto;
+            })
+        </script>
+    </body>
+</html>
