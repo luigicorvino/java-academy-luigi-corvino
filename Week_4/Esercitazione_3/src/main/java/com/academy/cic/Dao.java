@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.Hibernate;
+
 import com.academy.cic.entity.Course;
 import com.academy.cic.entity.Registration;
 import com.academy.cic.entity.Student;
@@ -115,6 +117,23 @@ public class Dao {
 		}
 
 		return avg;
+	}
+	
+	public Student findStudent(int studentId) {
+		logger.info("findStudent");
+		EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+		Student student = null;
+		try {
+			student = entityManager.find(Student.class, studentId);
+			if(student!=null)
+				Hibernate.initialize(student.getRegistrations());
+		} catch (Exception e) {
+			e.printStackTrace(); 
+		} finally {
+			entityManager.close(); 
+		}
+
+		return student;
 	}
 
 

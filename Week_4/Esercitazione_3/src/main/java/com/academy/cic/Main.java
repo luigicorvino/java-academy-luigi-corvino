@@ -44,7 +44,7 @@ public class Main {
 		dao.registryStudentCourse(registration);
 		
 		//Registrazione student a corso2
-		Registration registration2 = new Registration(student,course2,22);
+		Registration registration2 = new Registration(student,course2);
 		List<Registration> registrations2 = new ArrayList<>();
 		registrations2.add(registration2);
 		
@@ -101,6 +101,20 @@ public class Main {
 		System.out.println("Average grade dello student: "+student3);
 		System.out.println(dao.findAvgGradeByStudentId(student3.getId()));
 		
+		
+		//Visualizzare i dati di uno studente recuperato tramite id, 
+		//i corsi a cui è registrato e per ognuno il voto conseguito (se presente)
+		Student studentFound = dao.findStudent(student.getId());
+		System.out.println("Corsi studente: "+studentFound);
+		List<Registration> registrationsStudentFound = studentFound.getRegistrations();
+		
+		if(registrationsStudentFound !=null) {
+			for(Registration r : registrationsStudentFound) {
+				System.out.println("Corso: "+ r.getCourse()+
+						(r.getGrade()!=0?" Voto: "+r.getGrade():""));
+				
+			}
+		}
 	}
 
 }

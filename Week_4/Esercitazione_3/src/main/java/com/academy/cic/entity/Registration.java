@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "REGISTRATION")
 @NamedQuery(name = "Registration.findAvgGradeByStudentId",
-			query = "SELECT avg(grade) FROM Registration r GROUP BY r.student.id HAVING r.student.id = :studentId")
+			query = "SELECT avg(r.grade) FROM Registration r WHERE r.student.id = :studentId and r.grade!=0")
 public class Registration extends Base {
 
 	@ManyToOne
@@ -29,6 +29,16 @@ public class Registration extends Base {
 	public Registration() {
 		super();
 	}
+
+
+
+	
+	public Registration(Student student, Course course) {
+		super();
+		this.student = student;
+		this.course = course;
+	}
+
 
 
 
